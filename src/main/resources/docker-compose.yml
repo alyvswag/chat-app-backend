@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  rabbitmq:
+    container_name: rabbitmq-chat
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest1
+      - RABBITMQ_DEFAULT_PASS=guest1
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+
+  redis:
+    container_name: redis-server-chat
+    image: 'bitnami/redis:latest'
+    restart: always
+    environment:
+      - REDIS_PASSWORD=redis12345
+    ports:
+      - '6379:6379'
+    volumes:
+      - ../../docker-volumes/redis:/bitnami/redis/data
+
+volumes:
+  rabbitmq_data:
