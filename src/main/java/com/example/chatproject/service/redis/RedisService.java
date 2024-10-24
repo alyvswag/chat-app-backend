@@ -40,6 +40,14 @@ public class RedisService {
         }
         return groups;
     }
+    public Boolean checkGroupPassword(long id, String password) {
+        RMap<Object, Object> map = redissonClient.getMap("group");
+        Group group = (Group) map.get(id);
+        if(group !=null && group.getGroupPass().equals(password)){
+            return true;
+        }
+        return false;
+    }
 
     public void set(String tokenName, String token, Long milliSeconds) {
         RBucket<String> key = redissonClient.getBucket(tokenName);
@@ -92,6 +100,7 @@ public class RedisService {
         RMap<String, String> tokenMap = redissonClient.getMap(email);
         return refreshToken.equals(tokenMap.get("refreshToken"));
     }
+
 
 }
 

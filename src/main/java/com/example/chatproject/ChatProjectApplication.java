@@ -25,6 +25,4 @@ public class ChatProjectApplication  {
 //
 //        System.out.println(redisService.getAllGroup());
 //    }
-
-
 }

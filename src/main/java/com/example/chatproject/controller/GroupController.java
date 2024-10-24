@@ -38,5 +38,10 @@ public class GroupController {
     public ResponseEntity<List<Group>> getAllGroup() {
         return ResponseEntity.ok(groupService.getAllGroup());
     }
+    @PostMapping("/check-group-password")
+    public ResponseEntity<Boolean> checkGroupPassword(@RequestParam("id") long id,
+                                                      @RequestParam("password") String password){
+        return ResponseEntity.ok(groupService.checkGroupPassword(id,password));
+    }
 
 }

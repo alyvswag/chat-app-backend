@@ -27,4 +27,7 @@ public class GroupService {
         return redisService.getAllGroup();
     }
 
+    public Boolean checkGroupPassword(long id, String password) {
+        return redisService.checkGroupPassword(id,password);
+    }
 }
