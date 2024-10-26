@@ -17,4 +17,5 @@ public class Group  {
     String groupName;
     String groupDescription;
     String groupPass;
+    Boolean isPrivate;
 }

@@ -2,6 +2,8 @@ package com.example.chatproject.models.dao.entity;
 
 import lombok.*;
 
+import java.awt.*;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -9,6 +11,6 @@ import lombok.*;
 @Builder
 @ToString
 public class Message {
-    String message;
-    String user;
+    private String message;
+    private String user;
 }

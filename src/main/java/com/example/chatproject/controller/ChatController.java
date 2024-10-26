@@ -15,9 +15,12 @@ public class ChatController {
     @SendTo("/topic/{roomId}")
     public Message sendMsg(@DestinationVariable String roomId, Message msg) {
         System.out.println("otaq adi : "+roomId);
-        System.out.println("user: "+ msg.getUser() + " message: "  + msg.getMessage() );
-        return new Message(msg.getMessage(), msg.getUser());
+        System.out.println( "user: "+ msg.getUser() + " message: "  + msg.getMessage() );
+        return new Message( msg.getMessage(), msg.getUser());
     }
+
+
+
 
 }
 

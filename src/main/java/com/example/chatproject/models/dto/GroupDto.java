@@ -10,8 +10,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class GroupDto  {
     String groupName;
     String groupDescription;
     String groupPass;
+    Boolean isPrivate;
 }

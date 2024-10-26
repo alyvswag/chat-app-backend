@@ -4,6 +4,7 @@ package com.example.chatproject.controller;
 import com.example.chatproject.models.dao.entity.Group;
 import com.example.chatproject.models.dto.GroupDto;
 import com.example.chatproject.service.group.GroupService;
+import com.example.chatproject.service.redis.RedisService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,6 +20,7 @@ import java.util.List;
 @CrossOrigin
 public class GroupController {
     final GroupService groupService;
+    private final RedisService redisService;
 
     @GetMapping("/hello")
     public String sayHello() {
@@ -26,11 +28,13 @@ public class GroupController {
     }
 
     @PostMapping("/add-group")
-    public ResponseEntity<Void>  addGroup(@RequestBody GroupDto groupDto) {
+    public ResponseEntity<Void> addGroup(@RequestBody GroupDto groupDto) {
+
         groupService.addGroup(
                 groupDto.getGroupName(),
                 groupDto.getGroupDescription(),
-                groupDto.getGroupPass());
+                groupDto.getGroupPass(),
+                groupDto.getIsPrivate());
         return ResponseEntity.ok().build();
     }
 
@@ -38,10 +42,21 @@ public class GroupController {
     public ResponseEntity<List<Group>> getAllGroup() {
         return ResponseEntity.ok(groupService.getAllGroup());
     }
+
     @PostMapping("/check-group-password")
     public ResponseEntity<Boolean> checkGroupPassword(@RequestParam("id") long id,
-                                                      @RequestParam("password") String password){
-        return ResponseEntity.ok(groupService.checkGroupPassword(id,password));
+                                                      @RequestParam("password") String password) {
+        return ResponseEntity.ok(groupService.checkGroupPassword(id, password));
+    }
+
+    @GetMapping("/get-unique-id")
+    public ResponseEntity<String> getUniqueId(@RequestParam("groupName") String text) throws Exception {
+        return ResponseEntity.ok(groupService.getUniqueSearchId(text));
+    }
+
+    @GetMapping("/check-group-name")
+    public ResponseEntity<Boolean> checkGroupName(@RequestParam("groupName") String groupName) {
+        return ResponseEntity.ok(redisService.checkGroupName(groupName));
     }
 
 }

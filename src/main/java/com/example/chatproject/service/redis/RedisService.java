@@ -31,12 +31,27 @@ public class RedisService {
        return (long) map.size();
 
     }
+    public Boolean checkGroupName(String groupName) {
+        RMap<Object, Object> map = redissonClient.getMap("group");
+        Group g ;
+        for(Object value : map.values()){
+            g = (Group) value;
+            if(g.getGroupName().equals(groupName)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public List<Group> getAllGroup(){
         RMap<Object, Object> map = redissonClient.getMap("group");
         List<Group> groups = new ArrayList<>();
+        Group g ;
         for(Object value : map.values()){
-            groups.add((Group) value);
+            g = (Group) value;
+            if(!g.getIsPrivate()){
+                groups.add(g);
+            }
         }
         return groups;
     }
@@ -100,6 +115,7 @@ public class RedisService {
         RMap<String, String> tokenMap = redissonClient.getMap(email);
         return refreshToken.equals(tokenMap.get("refreshToken"));
     }
+
 
 
 }

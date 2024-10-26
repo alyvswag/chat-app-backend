@@ -23,7 +23,6 @@ spring:
     redisson:
       file: classpath:redisson.yml
 
-
   rabbitmq:
     host: localhost
     port: 5672
